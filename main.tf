@@ -1,29 +1,18 @@
-# ssh keys
-resource "tls_private_key" "default" {
-  algorithm = "RSA"
-  rsa_bits  = "4096"
+#variable "github_organization" {}
+#variable "github_personal_access_token" {}
+#variable "gitlab_personal_access_token" {}
+#variable "user_ocid" {}
+#variable "fingerprint" {}
+#variable "private_key_path" {}
+module "gh_gl_repo_from_clone" {
+  source                       = "./modules/gh_gl_repo_from_clone"
+# github_organization          = var.github_organization 
+  github_personal_access_token = var.github_personal_access_token
+  gitlab_personal_access_token = var.gitlab_personal_access_token
 }
-
-resource "local_file" "default-ssh-privkey" {
-    content = tls_private_key.default.private_key_pem
-    filename = "${path.cwd}/default-id_rsa"
-    file_permission = "0600"
-}
-
-resource "local_file" "default-ssh-pubkey" {
-    content  = tls_private_key.default.public_key_openssh
-    filename = "${path.cwd}/default-id_rsa.pub"
-    file_permission = "0644"
-}
-
-# Output: The dynamically created openssh public key
-output "default_ssh_public_key" {
-  value = tls_private_key.default.public_key_openssh
-  sensitive = false
-}
-
-# Output: The dynamically created openssh private key
-output "default_ssh_private_key" {
-  value = tls_private_key.default.private_key_pem
-  sensitive = true
-}
+#output "oci_ampere_a1_private_ips" {
+#  value     = module.oci-ampere-a1.ampere_a1_private_ips
+#}
+#output "oci_ampere_a1_public_ips" {
+#  value     = module.oci-ampere-a1.ampere_a1_public_ips
+#}

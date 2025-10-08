@@ -13,19 +13,16 @@ terraform {
       source = "gitlabhq/gitlab"
       version = "~>18.4.1"
     }
-    cloudflare = {
-      source = "cloudflare/cloudflare"
-      version = "~> 5.10.0" # Use the appropriate version
-    }
     github = {
       source  = "integrations/github"
       version = "~> 6.6.0"
     }
   }
 }
-provider "cloudflare" {
-  api_token = var.cloudflare_api_token
-}
+
+
+
+# GitHub Provider
 provider "github" {
   # Github Personal Access Token
   token = var.github_personal_access_token
